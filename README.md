@@ -1,1 +1,1 @@
-# library-project
+This will be my first javascript project as part of the Odin Projects Intermediate Javascript course curriculum! I will be using Object constructors to allow users to build their own library book database. Marking books authors, titles, page numbers, and whether or not they have read the book!
