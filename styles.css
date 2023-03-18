@@ -1,0 +1,9 @@
+#formBox{
+    display: none;
+    position: absolute;
+    top: 20rem;
+    right: 50rem;
+    background-color: aquamarine;
+    z-index: 1;
+    padding: 10px;
+}

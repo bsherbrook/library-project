@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library</title>
-    <link rel="stylesheet" href="style.scss">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Welcome to my Library</h1>
     <button id="addBook">Add Book</button>
-    <div class="formBox">
+    <div id="formBox">
         <form action="#" method="post" class="modalForm">
             <label for="title">Book Title</label><br>
             <input type="text" id="title" name="title"><br>
@@ -19,7 +19,8 @@
             <label for="pageNum">Page Numbers</label><br>
             <input type="tel" name="pageNum" id="pageNum"><br>
             <label for="readStatus">Have you read this book?</label><br>
-            <input type="checkbox" id="read" name="readStatus" value="Read">
+            <input type="checkbox" id="read" name="readStatus" value="Read"><br><br>
+            <input type="button" value="Submit">
         </form>
     </div>
     <script src="script.js"></script>

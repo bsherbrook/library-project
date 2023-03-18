@@ -9,9 +9,10 @@ function addBookToLibrary() {
 }
 
 const bookButton= document.getElementById("addBook");
+const formBox= document.getElementById("formBox");
 
 function addBook(){
-    console.log('hey');
+    formBox.style.display='block';
 }
 
 bookButton.addEventListener('click', addBook);
