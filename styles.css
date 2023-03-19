@@ -1,3 +1,7 @@
+#submitButt{
+    background-color: aqua;
+}
+
 #formBox{
     display: none;
     position: absolute;
