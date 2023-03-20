@@ -1,13 +1,14 @@
 const bookButton = document.getElementById("addBook");
 const formBox = document.getElementById("formBox");
 const submitButt = document.getElementById("submitButt");
-const bookInfo = document.getElementsByClassName("bookInfo");
 const form = document.querySelector("form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pageNum = document.getElementById("pageNum");
 const readStatus = document.getElementById("readStatus");
 const bookTable = document.getElementById("bookTable");
+const deleteButton = document.querySelectorAll("deleteBook");
+
 let myLibrary = [];
 
 class Book {
@@ -37,15 +38,41 @@ function submitBook(event) {
     if (lastBook.readStatus === true) {
       lastBook.readStatus = "Read";
     }
-    bookTable.innerHTML += `<tr><td>${lastBook.title}</td><td>${lastBook.author}</td><td>${lastBook.pageNum}</td><td>${lastBook.readStatus}</td></tr>`;
+    libraryLoop();
     formBox.style.display = "none";
   }
 }
-
-function addBookToLibrary() {
-  // do stuff here
+function libraryLoop() {
+  bookTable.innerHTML =
+    "<tr><th>Title</th><th>Author</th><th>Pages</th><th>Read/Unread</th></tr>";
+  for (let i = 0; i < myLibrary.length; i++) {
+    const bookRow = document.createElement("tr");
+    bookRow.classList.add("bookInfo");
+    bookTable.appendChild(bookRow);
+    //title
+    const bookTitle = document.createElement("td");
+    bookTitle.textContent = myLibrary[i].title;
+    bookRow.appendChild(bookTitle);
+    //author
+    const bookAuthor = document.createElement("td");
+    bookAuthor.textContent = myLibrary[i].author;
+    bookRow.appendChild(bookAuthor);
+    //pages
+    const bookPages = document.createElement("td");
+    bookPages.textContent = myLibrary[i].pageNum;
+    bookRow.appendChild(bookPages);
+    //readStatus
+    const bookRead = document.createElement("td");
+    bookRead.textContent = myLibrary[i].readStatus;
+    bookRow.appendChild(bookRead);
+    //button
+    const rmvButton = document.createElement("button");
+    rmvButton.setAttribute("class", `deleteBook`);
+    rmvButton.setAttribute("id", `myLibrary${i}`);
+    rmvButton.textContent = "remove";
+    bookRow.appendChild(rmvButton);
+  }
 }
-
 function addBook() {
   if (formBox.style.display === "block") {
     return;
@@ -56,6 +83,12 @@ function addBook() {
   readStatus.checked = false;
   formBox.style.display = "block";
 }
+
+document.addEventListener("click", (event) => {
+  if (event.target.classList.value === "deleteBook") {
+    console.log(event.target.id);
+  }
+});
 
 submitButt.addEventListener("click", submitBook);
 bookButton.addEventListener("click", addBook);
