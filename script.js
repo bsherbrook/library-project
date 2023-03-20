@@ -68,7 +68,7 @@ function libraryLoop() {
     //button
     const rmvButton = document.createElement("button");
     rmvButton.setAttribute("class", `deleteBook`);
-    rmvButton.setAttribute("id", `myLibrary${i}`);
+    rmvButton.setAttribute("id", `${i}`);
     rmvButton.textContent = "remove";
     bookRow.appendChild(rmvButton);
   }
@@ -86,7 +86,9 @@ function addBook() {
 
 document.addEventListener("click", (event) => {
   if (event.target.classList.value === "deleteBook") {
-    console.log(event.target.id);
+    const libraryIndex= event.target.id;
+    myLibrary.splice(libraryIndex,1);
+    libraryLoop();
   }
 });
 
