@@ -8,6 +8,8 @@ const pageNum = document.getElementById("pageNum");
 const readStatus = document.getElementById("readStatus");
 const bookTable = document.getElementById("bookTable");
 const deleteButton = document.querySelectorAll("deleteBook");
+const deleteModal = document.getElementById("deleteModal");
+const deleteConfirm = document.getElementById("confirmDelete");
 
 let myLibrary = [];
 
@@ -63,9 +65,23 @@ function libraryLoop() {
     bookRow.appendChild(bookPages);
     //readStatus
     const bookRead = document.createElement("td");
-    bookRead.textContent = myLibrary[i].readStatus;
+    const bookReadButton = document.createElement("button");
+    bookReadButton.textContent = myLibrary[i].readStatus;
+    bookReadButton.setAttribute("id", `ReadButton${i}`);
+    bookReadButton.addEventListener("click", (event) => {
+      let x = event.target.id.slice(-1);
+      let readstat = myLibrary[x].readStatus;
+      if (readstat === "Read") {
+        myLibrary[x].readStatus = "Unread";
+        libraryLoop();
+      } else {
+        myLibrary[x].readStatus = "Read";
+        libraryLoop();
+      }
+    });
+    bookRead.appendChild(bookReadButton);
     bookRow.appendChild(bookRead);
-    //button
+    //delete button
     const rmvButton = document.createElement("button");
     rmvButton.setAttribute("class", `deleteBook`);
     rmvButton.setAttribute("id", `${i}`);
@@ -86,11 +102,20 @@ function addBook() {
 
 document.addEventListener("click", (event) => {
   if (event.target.classList.value === "deleteBook") {
-    const libraryIndex= event.target.id;
-    myLibrary.splice(libraryIndex,1);
-    libraryLoop();
+    const libraryIndex = event.target.id;
+    deleteModal.style.display = "block";
+    deleteConfirm.addEventListener("click", confirmDelete);
+    const cancelDelete = document.getElementById("cancelDelete");
+    cancelDelete.addEventListener("click", (cancel) => {
+      deleteModal.style.display = "none";
+      return;
+    });
+    function confirmDelete() {
+      myLibrary.splice(libraryIndex, 1);
+      libraryLoop();
+      deleteModal.style.display = "none";
+    }
   }
 });
-
 submitButt.addEventListener("click", submitBook);
 bookButton.addEventListener("click", addBook);
