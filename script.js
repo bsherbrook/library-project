@@ -7,7 +7,6 @@ const author = document.getElementById("author");
 const pageNum = document.getElementById("pageNum");
 const readStatus = document.getElementById("readStatus");
 const bookTable = document.getElementById("bookTable");
-const deleteButton = document.querySelectorAll("deleteBook");
 const deleteModal = document.getElementById("deleteModal");
 const deleteConfirm = document.getElementById("confirmDelete");
 
@@ -87,6 +86,18 @@ function libraryLoop() {
     rmvButton.setAttribute("id", `${i}`);
     rmvButton.textContent = "remove";
     bookRow.appendChild(rmvButton);
+    buttons = document.querySelectorAll(".deleteBook");
+    buttons.forEach((button) => {
+      if (button.classList.contains("once")) {
+        return;
+      }
+      button.classList.add("once");
+      button.addEventListener("click", function handleClick(event) {
+        const libraryIndex = event.target.id;
+        myLibrary.splice(Number(libraryIndex), 1);
+        libraryLoop();
+      });
+    });
   }
 }
 function addBook() {
@@ -100,22 +111,26 @@ function addBook() {
   formBox.style.display = "block";
 }
 
-document.addEventListener("click", (event) => {
-  if (event.target.classList.value === "deleteBook") {
-    const libraryIndex = event.target.id;
-    deleteModal.style.display = "block";
-    deleteConfirm.addEventListener("click", confirmDelete);
-    const cancelDelete = document.getElementById("cancelDelete");
-    cancelDelete.addEventListener("click", (cancel) => {
-      deleteModal.style.display = "none";
-      return;
-    });
-    function confirmDelete() {
-      myLibrary.splice(libraryIndex, 1);
-      libraryLoop();
-      deleteModal.style.display = "none";
-    }
-  }
-});
+let buttons;
+// document.addEventListener("click", (event) => {
+//   if (event.target.classList.value === "deleteBook") {
+// const libraryIndex = event.target.id;
+// myLibrary.splice(libraryIndex, 1);
+//   libraryLoop();
+//   console.log(myLibrary.splice(libraryIndex, 1));
+// deleteModal.style.display = "block";
+// deleteConfirm.addEventListener("click", confirmDelete);
+// const cancelDelete = document.getElementById("cancelDelete");
+// cancelDelete.addEventListener("click", (cancel) => {
+//   deleteModal.style.display = "none";
+//   return;
+// });
+// function confirmDelete() {
+//   myLibrary.splice(libraryIndex, 1);
+//   libraryLoop();
+//   deleteModal.style.display = "none";
+//}
+//  }
+//});
 submitButt.addEventListener("click", submitBook);
 bookButton.addEventListener("click", addBook);
